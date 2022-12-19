@@ -6,7 +6,7 @@ class CustomFieldError(
     val field: String,
     val value: String,
     val reason: String
-) {
+) { 
     companion object {
 
         fun of(field: String, value: String, reason: String): List<CustomFieldError> {
