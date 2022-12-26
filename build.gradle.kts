@@ -4,6 +4,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.0.0"
     id("io.spring.dependency-management") version "1.1.0"
+    id("com.ewerk.gradle.plugins.querydsl") version "1.0.10"
+
     kotlin("jvm") version "1.7.21"
     kotlin("plugin.spring") version "1.7.21"
     kotlin("plugin.jpa") version "1.6.21"
@@ -24,25 +26,28 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.data:spring-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    //runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("com.h2database:h2")
+    implementation("org.mongodb:mongo-java-driver:3.12.11")
+
+    //implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    implementation("com.querydsl:querydsl-mongodb:5.0.0")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
-    implementation("io.jsonwebtoken:jjwt-api:0.10.7")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.10.7")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.10.7")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-    //runtimeOnly("mysql:mysql-connector-java")
-    runtimeOnly("com.h2database:h2")
-
-    implementation("org.springframework.data:spring-data-mongodb")
-    implementation("org.mongodb:mongo-java-driver:3.12.11")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.5")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.0.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
 
 allOpen {
@@ -57,6 +62,11 @@ noArg {
     annotation("org.springframework.data.mongodb.core.mapping.Document")
 }
 
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    querydslSourcesDir = "$projectDir/build/generated"
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -67,3 +77,4 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
