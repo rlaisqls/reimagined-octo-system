@@ -2,15 +2,10 @@ package com.example.demongodb.domain.document.domain
 
 import com.example.demongodb.domain.document.domain.element.*
 import com.example.demongodb.domain.document.domain.enums.Visibility
-import com.example.demongodb.domain.document.error.DocumentNotFoundException
 import com.example.demongodb.domain.user.domain.User
-import com.example.demongodb.global.entity.BaseObjectEntity
+import com.example.demongodb.global.entity.BaseUUIDEntity
 import jakarta.persistence.Column
-import jakarta.persistence.Entity
 import jakarta.persistence.EntityListeners
-import jakarta.persistence.Id
-import org.bson.types.ObjectId
-import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import org.springframework.data.mongodb.core.mapping.Document
@@ -21,15 +16,12 @@ import java.time.LocalDateTime
 class Document(
 
     @Column(updatable = false)
-    val writer: UserInfoElement,
+    val writer: WriterInfoElement,
 
-    @Column
+    @Column(nullable = false)
     val version: Int,
 
-    @Column
-    val grade: Int,
-
-    visibility: Visibility,
+    visibility: Visibility = Visibility.PRIVATE,
 
     introduce: IntroduceElement = IntroduceElement(),
 
@@ -37,9 +29,9 @@ class Document(
 
     experienceList: MutableList<ExperienceElement> = mutableListOf()
 
-): BaseObjectEntity() {
+): BaseUUIDEntity() {
 
-    @Column
+    @Column(nullable = false)
     var visibility: Visibility = visibility
         protected set
 
