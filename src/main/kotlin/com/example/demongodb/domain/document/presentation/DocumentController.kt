@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 class DocumentController(
     val createDocumentService: CreateDocumentService
 ) {
-
+ 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("")
     fun createDocument(@ModelAttribute request: CreateDocumentRequest) {
@@ -23,7 +23,7 @@ class DocumentController(
     }
 
     fun changeVisibility(@ModelAttribute request: ChangeVisibilityRequest) {
-        //changeVisibilityService.execute(request)
+        changeVisibilityService.execute(request)
     }
 
 }
