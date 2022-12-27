@@ -1,7 +1,10 @@
 package com.example.demongodb.domain.user.presentation.dto.response
 
+import java.util.*
+
 data class QueryUserInfoResponse(
-    val userId: Long,
+    val userId: UUID,
     val name: String,
-    val email: String
+    val email: String,
+    val studentID: Int?
 )
