@@ -1,5 +1,6 @@
 package com.example.demongodb.global.config
 
+import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import org.springframework.context.annotation.Bean
@@ -11,11 +12,9 @@ class QuerydslConfig(
     private val entityManager: EntityManager
 ) {
 
-
-    /*
     @Bean
     fun JPAQueryFactory(): JPAQueryFactory {
         return JPAQueryFactory(entityManager)
-    }*/
+    }
 
 }
