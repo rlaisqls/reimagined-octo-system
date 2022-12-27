@@ -5,9 +5,11 @@ import com.example.demongodb.domain.user.domain.repository.UserRepository
 import com.example.demongodb.domain.user.error.PasswordMismatchException
 import com.example.demongodb.domain.user.error.UserAlreadyExistException
 import com.example.demongodb.domain.user.error.UserNotFoundException
+import com.example.demongodb.global.security.auth.AuthDetails
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
+import java.util.*
 
 
 @Component
@@ -17,11 +19,11 @@ class UserFacade(
 ) {
 
     fun getCurrentUser(): User {
-        val email = SecurityContextHolder.getContext().authentication.principal as String
-        return userRepository.findByEmail(email)!!
+        val authDetail = SecurityContextHolder.getContext().authentication.principal as AuthDetails
+        return authDetail.user
     }
 
-    fun findById(userId: Long) : User {
+    fun findById(userId: UUID): User {
         return userRepository.findById(userId)
             .orElseThrow { UserNotFoundException }
     }

@@ -2,6 +2,7 @@ package com.example.demongodb.domain.user.domain
 
 
 import com.example.demongodb.domain.user.domain.enums.Authority
+import com.example.demongodb.global.entity.BaseUUIDEntity
 import jakarta.persistence.*
 
 
@@ -12,19 +13,13 @@ class User(
     password: String,
     email: String,
     authority: Authority
-) {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    var id: Long = 0
-        protected set
+): BaseUUIDEntity() {
 
     @Column(nullable = false, unique = true, length = 15)
     var name: String = name
         protected set
 
-    @Column(nullable = false, unique = true, length = 40)
+    @Column(nullable = false, unique = true, length = 60)
     var email: String = email
         protected set
 

@@ -8,6 +8,7 @@ import com.example.demongodb.domain.user.presentation.dto.request.SignUpRequest
 import com.example.demongodb.domain.user.presentation.dto.response.QueryUserInfoResponse
 import com.example.demongodb.domain.user.service.*
 import jakarta.validation.Valid
+import java.util.UUID
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -50,7 +51,7 @@ class UserController(
     }
 
     @GetMapping("/{user-id}")
-    fun queryUserInformation(@PathVariable("user-id") userId: Long): QueryUserInfoResponse {
+    fun queryUserInformation(@PathVariable("user-id") userId: UUID): QueryUserInfoResponse {
         return queryUserInfoService.execute(userId)
     }
 
