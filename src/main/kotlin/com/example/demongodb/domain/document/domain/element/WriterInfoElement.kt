@@ -3,6 +3,8 @@ package com.example.demongodb.domain.document.domain.element
 import com.example.demongodb.domain.document.domain.element.enums.JobTitle
 import com.example.demongodb.domain.student.domain.Student
 import com.example.demongodb.domain.user.domain.User
+import com.querydsl.core.annotations.QueryEmbeddable
+import com.querydsl.core.annotations.QueryEntity
 import java.util.UUID
 
 class WriterInfoElement (

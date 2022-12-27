@@ -1,9 +1,12 @@
 package com.example.demongodb.domain.document.domain.element
 
 import com.example.demongodb.domain.document.error.InvalidProjectException
+import com.querydsl.core.annotations.QueryEmbeddable
+import com.querydsl.core.annotations.QueryEntity
 import java.lang.IllegalArgumentException
 import java.time.LocalDate
 import java.time.YearMonth
+
 
 class ProjectElement (
 

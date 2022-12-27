@@ -1,5 +1,6 @@
 package com.example.demongodb.domain.document.domain.element
 
+import com.querydsl.core.annotations.QueryEmbeddable
 import java.time.YearMonth
 
 class ExperienceElement (
