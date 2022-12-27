@@ -17,7 +17,7 @@ class QueryMyDocumentListService(
 
         val user = userFacade.getCurrentUser()
 
-        val documentList = documentFacade.queryByStudent(user)
+        val documentList = documentFacade.queryByWriter(user)
 
         return QueryDocumentListResponse(
             list = documentList.map { DocumentResponse(it) }
