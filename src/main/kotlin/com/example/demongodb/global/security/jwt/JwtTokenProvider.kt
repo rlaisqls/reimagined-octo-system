@@ -9,12 +9,12 @@ import com.example.demongodb.global.security.exception.ExpiredTokenException
 import com.example.demongodb.global.security.exception.InvalidTokenException
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*
-import jakarta.servlet.http.HttpServletRequest
 
 
 @Component
@@ -77,8 +77,9 @@ class JwtTokenProvider(
 
     private fun getClaims(token: String): Jws<Claims> {
         return try {
-            Jwts.parser()
+            Jwts.parserBuilder()
                 .setSigningKey(jwtProperties.secretKey.toByteArray())
+                .build()
                 .parseClaimsJws(token)
         } catch (e: Exception) {
             println("JwtTokenProvider.getClaims")
