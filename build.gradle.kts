@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.builtins.StandardNames.FqNames.annotation
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -33,7 +33,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     implementation("org.mongodb:mongo-java-driver:3.12.11")
 
-    //implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    api("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     implementation("com.querydsl:querydsl-mongodb:5.0.0")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
@@ -62,8 +62,15 @@ noArg {
     annotation("org.springframework.data.mongodb.core.mapping.Document")
 }
 
+kapt {
+    annotationProcessor("org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor")
+    annotationProcessor("com.querydsl.apt.jpa.JPAAnnotationProcessor")
+}
+
 querydsl {
-    library = "com.querydsl:querydsl-apt"
+    springDataMongo = true
+    jpa = true
+    library = "com.querydsl:querydsl-apt:5.0.0:jakarta"
     querydslSourcesDir = "$projectDir/build/generated"
 }
 
@@ -71,6 +78,9 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
+    }
+    delete{
+        "$projectDir/build/generated"
     }
 }
 
