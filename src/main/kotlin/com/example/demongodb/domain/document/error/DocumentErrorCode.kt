@@ -8,9 +8,9 @@ enum class DocumentErrorCode (
     private val message: String
 ) : ErrorProperty {
 
-    DOCUMENT_NOT_FOUND(401, "Document Not Found"),
     INVALID_PROJECT(400, "Invalid Project Date"),
-    DOCUMENT_ACCESS_RIGHT(403, "Do Not Have Access To The Document.\n");
+    DOCUMENT_ACCESS_RIGHT(403, "Do Not Have Access To The Document.\n"),
+    DOCUMENT_NOT_FOUND(404, "Document Not Found");
 
     override fun status(): Int = status
     override fun message(): String = message
