@@ -1,5 +1,5 @@
-
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 
 plugins {
     id("org.springframework.boot") version "3.0.0"
@@ -26,19 +26,19 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.data:spring-data-mongodb")
+    implementation("org.springframework.data:spring-data-mongodb:4.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
     //runtimeOnly("mysql:mysql-connector-java")
     runtimeOnly("com.h2database:h2")
-    implementation("org.mongodb:mongo-java-driver:3.12.11")
+    //implementation("org.mongodb:mongo-java-driver:3.12.8")
+    implementation("org.mongodb:mongodb-driver-sync:4.8.1")
 
-    api("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     implementation("com.querydsl:querydsl-mongodb:5.0.0")
+    api("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
-
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
