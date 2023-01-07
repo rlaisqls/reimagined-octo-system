@@ -52,7 +52,6 @@ class JwtTokenProvider(
     private fun createToken(email: String, authority: Authority, jwtType: String, exp: Long): String {
         return Jwts.builder()
             .signWith(Keys.hmacShaKeyFor(jwtProperties.secretKey.toByteArray()), SignatureAlgorithm.HS256)
-            .setSubject(email)
             .setHeaderParam(Header.JWT_TYPE, jwtType)
             .setId(email)
             .claim(JwtProperty.AUTHORITY, authority)
@@ -70,8 +69,6 @@ class JwtTokenProvider(
 
         val details = authDetailsService.loadUserByUsername(claims.body.id)
 
-        println("JwtTokenProvider.getAuthentication")
-        println(claims.body.id)
         return UsernamePasswordAuthenticationToken(details, "", details.authorities)
     }
 
@@ -82,12 +79,8 @@ class JwtTokenProvider(
                 .build()
                 .parseClaimsJws(token)
         } catch (e: Exception) {
-            println("JwtTokenProvider.getClaims")
-            println(e.message)
-            println(e.javaClass)
-            println(e.cause)
             when (e) {
-                is ExpiredTokenException -> throw ExpiredTokenException
+                is ExpiredJwtException -> throw ExpiredTokenException
                 else -> throw InvalidTokenException
             }
         }
