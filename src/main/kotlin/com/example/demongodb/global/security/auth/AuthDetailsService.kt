@@ -2,7 +2,7 @@ package com.example.demongodb.global.security.auth
 
 import com.example.demongodb.domain.user.domain.User
 import com.example.demongodb.domain.user.domain.repository.UserRepository
-import com.example.demongodb.domain.user.error.UserNotFoundException
+import com.example.demongodb.global.security.exception.InvalidTokenException
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
@@ -13,7 +13,7 @@ class AuthDetailsService(
 ): UserDetailsService {
 
     override fun loadUserByUsername(email: String): UserDetails {
-        val user: User = userRepository.findByEmail(email) ?: throw UserNotFoundException
+        val user: User = userRepository.findByEmail(email) ?: throw InvalidTokenException
         return AuthDetails(user)
     }
 
