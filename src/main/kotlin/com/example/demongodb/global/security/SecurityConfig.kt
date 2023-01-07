@@ -1,15 +1,13 @@
 package com.example.demongodb.global.security
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.example.demongodb.domain.user.domain.enums.Authority.STUDENT
 import com.example.demongodb.global.security.jwt.JwtTokenProvider
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -36,11 +34,21 @@ class SecurityConfig(
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.authorizeHttpRequests()
+
             .requestMatchers(HttpMethod.POST, "/users").permitAll()
             .requestMatchers(HttpMethod.POST, "/users/auth").permitAll()
             .requestMatchers(HttpMethod.PUT, "/users/auth").permitAll()
             .requestMatchers(HttpMethod.GET, "/users").authenticated()
             .requestMatchers(HttpMethod.GET, "/users/{user-id}").authenticated()
+
+            .requestMatchers(HttpMethod.POST, "/documents").hasAnyAuthority(STUDENT.toString())
+            .requestMatchers(HttpMethod.GET, "/documents/my").hasAnyAuthority(STUDENT.toString())
+            .requestMatchers(HttpMethod.GET, "/documents").authenticated()
+            .requestMatchers(HttpMethod.GET, "/documents/{document-id}").authenticated()
+            .requestMatchers(HttpMethod.PATCH, "/documents/visibility").hasAnyAuthority(STUDENT.toString())
+            .requestMatchers(HttpMethod.PATCH, "/documents/introduce").hasAnyAuthority(STUDENT.toString())
+            .requestMatchers(HttpMethod.PATCH, "/documents/experience").hasAnyAuthority(STUDENT.toString())
+            .requestMatchers(HttpMethod.PATCH, "/documents/project").hasAnyAuthority(STUDENT.toString())
 
         http.apply(FilterConfig(jwtTokenProvider, objectMapper))
 
