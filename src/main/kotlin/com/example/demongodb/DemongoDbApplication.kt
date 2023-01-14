@@ -5,7 +5,7 @@ import org.springframework.boot.runApplication
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = [com.example.demongodb.domain.user.domain.repository.UserRepository::class])
+@EnableJpaRepositories(basePackages = ["com.example.demongodb.domain.user", "com.example.demongodb.domain.student"])
 class DemongoDbApplication
 
 fun main(args: Array<String>) {
