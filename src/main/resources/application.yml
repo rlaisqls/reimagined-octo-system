@@ -3,8 +3,6 @@ server:
   shutdown: graceful
 
 spring:
-  jackson:
-    property-naming-strategy: SNAKE_CASE
   datasource:
     url: ${H2_URL}
     username: ${H2_USERNAME}
@@ -24,7 +22,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017
-      database: test
+      database: hello
     redis:
       host: localhost
       port: 6379
