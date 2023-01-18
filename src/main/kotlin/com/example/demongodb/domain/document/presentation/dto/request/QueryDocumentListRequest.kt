@@ -8,7 +8,7 @@ data class QueryDocumentListRequest (
     @field:NotNull
     val version: Int,
 
-    val jobTitle: JobTitle,
+    val jobTitle: JobTitle?,
 
     val classNum: Int?,
 

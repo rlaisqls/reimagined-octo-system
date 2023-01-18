@@ -2,7 +2,7 @@ package com.example.demongodb.domain.document.service
 
 import com.example.demongodb.domain.document.facade.DocumentFacade
 import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentListResponse
-import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentListResponse.Companion.DocumentResponse
+import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentListResponse.DocumentResponse
 import com.example.demongodb.domain.user.facade.UserFacade
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
@@ -17,7 +17,7 @@ class QueryMyDocumentListService(
 
         val user = userFacade.getCurrentUser()
 
-        val documentList = documentFacade.queryByWriter(user)
+        val documentList = documentFacade.findByWriter(user)
 
         return QueryDocumentListResponse(
             list = documentList.map { DocumentResponse(it) }

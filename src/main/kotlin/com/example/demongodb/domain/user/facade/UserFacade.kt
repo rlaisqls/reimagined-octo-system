@@ -33,6 +33,9 @@ class UserFacade(
     }
 
     fun checkEmailExist(email: String) {
+        println("UserFacade.checkEmailExist")
+        println(email)
+        println(userRepository.findByEmail(email))
         userRepository.findByEmail(email)?.let { throw UserAlreadyExistException }
     }
 

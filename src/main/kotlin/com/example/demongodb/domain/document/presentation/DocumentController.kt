@@ -1,6 +1,9 @@
 package com.example.demongodb.domain.document.presentation
 
 import com.example.demongodb.domain.document.presentation.dto.request.*
+import com.example.demongodb.domain.document.presentation.dto.response.CreateDocumentResponse
+import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentInfoResponse
+import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentListResponse
 import com.example.demongodb.domain.document.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -21,28 +24,28 @@ class DocumentController(
     private val updateProjectService: UpdateProjectService
 ) {
  
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun createDocument(@RequestBody request: CreateDocumentRequest) {
-        createDocumentService.execute(request)
+    fun createDocument(@RequestBody request: CreateDocumentRequest): CreateDocumentResponse {
+        return createDocumentService.execute(request)
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/my")
-    fun queryMyDocumentList() {
-        queryMyDocumentListService.execute()
+    fun queryMyDocumentList(): QueryDocumentListResponse {
+        return queryMyDocumentListService.execute()
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    fun queryDocumentList(@ModelAttribute request: QueryDocumentListRequest) {
-        queryDocumentListService.execute(request)
+    fun queryDocumentList(@ModelAttribute request: QueryDocumentListRequest): QueryDocumentListResponse {
+        return queryDocumentListService.execute(request)
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{document-id}")
-    fun queryDocumentInfo(@PathVariable("document-id") documentId: UUID) {
-        queryDocumentInfoService.execute(documentId)
+    fun queryDocumentInfo(@PathVariable("document-id") documentId: UUID): QueryDocumentInfoResponse {
+       return queryDocumentInfoService.execute(documentId)
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

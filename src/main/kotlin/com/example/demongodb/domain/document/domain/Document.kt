@@ -3,7 +3,7 @@ package com.example.demongodb.domain.document.domain
 import com.example.demongodb.domain.document.domain.element.*
 import com.example.demongodb.domain.document.domain.enums.Visibility
 import com.example.demongodb.domain.user.domain.User
-import com.example.demongodb.global.entity.BaseUUIDEntity
+import com.example.demongodb.global.entity.BaseMongoEntity
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
 import org.springframework.data.annotation.LastModifiedDate
@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @EntityListeners(AuditingEntityListener::class)
-@Document(collection="document")
+@Document(collection="documents")
 class Document(
 
     @Column(updatable = false)
@@ -30,7 +30,7 @@ class Document(
 
     experienceList: MutableList<ExperienceElement> = mutableListOf()
 
-): BaseUUIDEntity() {
+): BaseMongoEntity() {
 
     @Column(nullable = false)
     var visibility: Visibility = visibility
@@ -68,7 +68,7 @@ class Document(
     }
 
     fun isWriter(user: User): Boolean {
-        return this.writer.id != user.id
+        return this.writer.id == user.id
     }
 
     fun updateProject(projectList: List<ProjectElement>) {

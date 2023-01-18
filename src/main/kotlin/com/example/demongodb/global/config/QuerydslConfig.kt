@@ -5,6 +5,10 @@ import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.mongodb.core.MongoOperations
+import org.springframework.data.mongodb.repository.support.MongoRepositoryFactory
+import org.springframework.data.repository.core.support.RepositoryFactorySupport
+
 
 @Configuration
 class QuerydslConfig(
@@ -17,4 +21,8 @@ class QuerydslConfig(
         return JPAQueryFactory(entityManager)
     }
 
+    @Bean
+    fun mongoRepositoryFactory(operations: MongoOperations): MongoRepositoryFactory {
+        return MongoRepositoryFactory(operations)
+    }
 }

@@ -1,7 +1,7 @@
 package com.example.demongodb.domain.student.domain
 
 import com.example.demongodb.domain.user.domain.User
-import com.example.demongodb.global.entity.BaseUUIDEntity
+import com.example.demongodb.global.entity.BaseEntity
 import jakarta.persistence.*
 import org.hibernate.validator.constraints.Range
 
@@ -13,7 +13,7 @@ class Student(
     classNum: Int,
     number: Int
 
-): BaseUUIDEntity() {
+): BaseEntity() {
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
@@ -45,5 +45,9 @@ class Student(
         classNum = (studentID / 100) % 10, //100의 자릿수
         number = studentID % 100 //10의 자릿수 이하
     )
+
+    companion object {
+        fun toStudentID(grade: Int, classNum: Int, number: Int) = grade * 1000 + classNum * 100 + number
+    }
 
 }

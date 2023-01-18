@@ -1,21 +1,20 @@
 package com.example.demongodb.domain.document.presentation.dto.response
 
 import com.example.demongodb.domain.document.domain.Document
-import com.example.demongodb.domain.document.domain.element.WriterInfoElement
-import com.example.demongodb.domain.student.domain.Student
+import java.util.*
 
 data class QueryDocumentListResponse (
     val list: List<DocumentResponse>
 ) {
-    companion object {
-        data class DocumentResponse(
-            val writer: WriterInfoElement,
-            val version: Int
-        ) {
-            constructor(document: Document): this(
-                writer = document.writer,
-                version = document.version
-            )
-        }
+    class DocumentResponse(
+        val id: UUID,
+        val writer: WriterInfoResponse,
+        val version: Int
+    ) {
+        constructor(document: Document): this(
+            id = document.id,
+            writer = WriterInfoResponse(document.writer),
+            version = document.version
+        )
     }
 }

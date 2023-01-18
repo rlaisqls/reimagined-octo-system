@@ -4,7 +4,6 @@ import com.example.demongodb.domain.document.domain.repository.DocumentRepositor
 import com.example.demongodb.domain.document.error.DocumentNotFoundException
 import com.example.demongodb.domain.document.facade.DocumentFacade
 import com.example.demongodb.domain.document.presentation.dto.request.ChangeVisibilityRequest
-import com.example.demongodb.domain.document.presentation.dto.request.CreateDocumentRequest
 import com.example.demongodb.domain.user.facade.UserFacade
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
@@ -19,7 +18,7 @@ class ChangeVisibilityService (
     fun execute(request: ChangeVisibilityRequest) {
 
         val user = userFacade.getCurrentUser()
-        val document = documentFacade.queryById(request.documentId)
+        val document = documentFacade.findById(request.documentId)
 
         if(!document.isWriter(user)) throw DocumentNotFoundException
 

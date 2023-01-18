@@ -1,5 +1,6 @@
 package com.example.demongodb.domain.document.service
 
+import com.example.demongodb.domain.document.domain.Document
 import com.example.demongodb.domain.document.domain.enums.Visibility
 import com.example.demongodb.domain.document.error.DocumentAccessRightException
 import com.example.demongodb.domain.document.facade.DocumentFacade
@@ -19,11 +20,9 @@ class QueryDocumentInfoService(
     fun execute(documentId: UUID): QueryDocumentInfoResponse {
 
         val user = userFacade.getCurrentUser()
-        val document = documentFacade.queryById(documentId)
+        val document = documentFacade.findById(documentId)
 
-        if((document.visibility == Visibility.PRIVATE) ||
-            (user.authority == Authority.STUDENT && !document.isWriter(user))) {
-
+        if(!document.isWriter(user) && doNotHaveAccessRight(document.visibility, user.authority)) {
             throw DocumentAccessRightException
         }
 
@@ -37,5 +36,18 @@ class QueryDocumentInfoService(
             )
         }
     }
+
+    private fun doNotHaveAccessRight(visibility: Visibility, authority: Authority): Boolean {
+
+        return when(visibility) {
+            Visibility.PRIVATE -> false
+            Visibility.STAY -> authority == Authority.TEATCHER
+            Visibility.PUBLIC -> true
+            Visibility.PROTECTED -> true
+        }
+    }
+
+    private fun isPrivateDocument(document: Document) =
+        document.visibility == Visibility.PRIVATE
 
 }

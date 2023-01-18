@@ -8,7 +8,6 @@ import com.example.demongodb.domain.document.presentation.dto.request.UpdateProj
 import com.example.demongodb.domain.user.facade.UserFacade
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
-import java.time.YearMonth
 
 @Service
 class UpdateProjectService(
@@ -20,7 +19,7 @@ class UpdateProjectService(
     fun execute(request: UpdateProjectRequest) {
 
         val user = userFacade.getCurrentUser()
-        val document = documentFacade.queryById(request.documentId)
+        val document = documentFacade.findById(request.documentId)
         if(!document.isWriter(user)) throw DocumentNotFoundException
 
         document.updateProject(request.list.map {

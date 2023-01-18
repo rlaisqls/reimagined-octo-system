@@ -22,7 +22,7 @@ class UpdateIntroduceService(
 
         val user = userFacade.getCurrentUser()
 
-        val document = documentFacade.queryById(request.documentId)
+        val document = documentFacade.findById(request.documentId)
         if(!document.isWriter(user)) throw DocumentNotFoundException
 
         document.updateIntroduce(IntroduceElement(

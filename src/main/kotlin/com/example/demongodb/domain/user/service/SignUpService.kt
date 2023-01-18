@@ -24,7 +24,7 @@ class SignUpService(
     @Transactional
     fun execute(request: SignUpRequest): TokenResponse {
 
-        userFacade.checkEmailExist(request.name)
+        userFacade.checkEmailExist(request.email)
 
         val user = userRepository.save(
             User(

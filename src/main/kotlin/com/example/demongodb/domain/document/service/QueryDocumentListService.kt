@@ -1,9 +1,10 @@
 package com.example.demongodb.domain.document.service
 
 import com.example.demongodb.domain.document.domain.repository.DocumentRepository
+import com.example.demongodb.domain.document.domain.repository.findByVersionAndWriterInfo
 import com.example.demongodb.domain.document.presentation.dto.request.QueryDocumentListRequest
 import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentListResponse
-import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentListResponse.Companion.DocumentResponse
+import com.example.demongodb.domain.document.presentation.dto.response.QueryDocumentListResponse.DocumentResponse
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
@@ -14,7 +15,7 @@ class QueryDocumentListService(
     @Transactional
     fun execute(request: QueryDocumentListRequest): QueryDocumentListResponse {
 
-        val documentList = documentRepository.queryByVersionAndWriterInfo(
+        val documentList = documentRepository.findByVersionAndWriterInfo(
             version = request.version,
             grade = request.grade,
             classNum = request.classNum,

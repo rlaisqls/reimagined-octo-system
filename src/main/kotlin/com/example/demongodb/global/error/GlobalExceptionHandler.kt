@@ -19,9 +19,10 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(BindException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    fun bindExceptionHandler(e: BindException): ErrorResponse = ErrorResponse.of(
+    fun bindExceptionHandler(e: BindException): ErrorResponse =  ErrorResponse.of(
         errorCode = GlobalErrorCode.BAD_REQUEST
     )
+
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -35,6 +36,7 @@ class GlobalExceptionHandler {
         errorCode = GlobalErrorCode.BAD_REQUEST
     )
 
+
     @ExceptionHandler(Exception::class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     fun exceptionHandler(e: Exception): ErrorResponse {
@@ -42,7 +44,8 @@ class GlobalExceptionHandler {
         println(e.javaClass)
         println(e.message)
         println(e.cause)
-        e.stackTrace.map { println(it) }
+        e.cause?.stackTrace?.map { println(it) }
+        println("////////////////////////////////////////////////////////////")
 
         return ErrorResponse.of(
             errorCode = GlobalErrorCode.INTERNAL_SERVER_ERROR

@@ -2,7 +2,7 @@ package com.example.demongodb.domain.user.domain
 
 
 import com.example.demongodb.domain.user.domain.enums.Authority
-import com.example.demongodb.global.entity.BaseUUIDEntity
+import com.example.demongodb.global.entity.BaseEntity
 import jakarta.persistence.*
 
 
@@ -13,7 +13,7 @@ class User(
     password: String,
     email: String,
     authority: Authority
-): BaseUUIDEntity() {
+): BaseEntity() {
 
     @Column(nullable = false, unique = true, length = 15)
     var name: String = name

@@ -4,14 +4,10 @@ import com.example.demongodb.domain.document.domain.element.ExperienceElement
 import com.example.demongodb.domain.document.domain.repository.DocumentRepository
 import com.example.demongodb.domain.document.error.DocumentNotFoundException
 import com.example.demongodb.domain.document.facade.DocumentFacade
-import com.example.demongodb.domain.document.presentation.dto.request.ChangeVisibilityRequest
 import com.example.demongodb.domain.document.presentation.dto.request.UpdateExperienceRequest
 import com.example.demongodb.domain.user.facade.UserFacade
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.GetMapping
-import reactor.core.publisher.Flux
-import java.time.YearMonth
 
 
 @Service
@@ -24,7 +20,7 @@ class UpdateExperienceService(
     fun execute(request: UpdateExperienceRequest) {
 
         val user = userFacade.getCurrentUser()
-        val document = documentFacade.queryById(request.documentId)
+        val document = documentFacade.findById(request.documentId)
 
         if(!document.isWriter(user)) throw DocumentNotFoundException
 

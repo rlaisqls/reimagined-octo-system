@@ -9,7 +9,7 @@ enum class DocumentErrorCode (
 ) : ErrorProperty {
 
     INVALID_PROJECT(400, "Invalid Project Date"),
-    DOCUMENT_ACCESS_RIGHT(403, "Do Not Have Access To The Document.\n"),
+    DOCUMENT_ACCESS_RIGHT(403, "Doesn't Have Access To The Document.\n"),
     DOCUMENT_NOT_FOUND(404, "Document Not Found");
 
     override fun status(): Int = status
